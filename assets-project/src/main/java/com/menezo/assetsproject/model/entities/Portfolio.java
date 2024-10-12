@@ -17,7 +17,7 @@ public class Portfolio {
     @Column(nullable = false)
     private PortfolioType type;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id")
     private List<Asset> assets;
 

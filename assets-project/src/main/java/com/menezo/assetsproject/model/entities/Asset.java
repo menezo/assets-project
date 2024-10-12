@@ -26,6 +26,10 @@ public abstract class Asset {
     @Column
     private int quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "portfolio_id", nullable = false)
+    private Portfolio portfolio;
+
     protected Asset() {
     }
 
@@ -64,6 +68,14 @@ public abstract class Asset {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
     }
 
     public void updatePrice(double newPrice) {
