@@ -2,7 +2,7 @@ package com.menezo.assetsproject.model.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.menezo.assetsproject.model.dto.StockDTO;
+import com.menezo.assetsproject.model.dto.AssetDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 @Service
-public class StockApiClient {
+public class AssetApiClient {
 
     private static final String API_URL = "https://brapi.dev/api/quote";
     private final HttpClient httpClient;
@@ -25,16 +25,16 @@ public class StockApiClient {
     @Value("${api.token}")
     private String apiToken;
 
-    private static final Logger logger = LoggerFactory.getLogger(StockApiClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(AssetApiClient.class);
 
 
     @Autowired
-    public StockApiClient(HttpClient httpClient, ObjectMapper objectMapper) {
+    public AssetApiClient(HttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
         this.objectMapper = objectMapper;
     }
 
-    public Optional<StockDTO> getStockData(String ticker) {
+    public Optional<AssetDTO> getAssetData(String ticker) {
         try {
             URI uri = new URI(API_URL + "/" + ticker);
             HttpRequest request = HttpRequest.newBuilder()
@@ -48,7 +48,7 @@ public class StockApiClient {
             if(response.statusCode() == 200) {
                 JsonNode jsonNode = objectMapper.readTree(response.body());
                 JsonNode resultNode = jsonNode.get("results").get(0);
-                StockDTO stockResponse = parseStockDTO(resultNode);
+                AssetDTO stockResponse = parseAssetDTO(resultNode);
                 return Optional.of(stockResponse);
             }
             else {
@@ -61,10 +61,10 @@ public class StockApiClient {
         }
     }
 
-    private StockDTO parseStockDTO(JsonNode resultNode) {
+    private AssetDTO parseAssetDTO(JsonNode resultNode) {
         String longName = resultNode.get("longName").asText();
         double regularMarketPrice = resultNode.get("regularMarketPrice").asDouble();
         String symbol = resultNode.get("symbol").asText();
-        return new StockDTO(longName, regularMarketPrice, symbol);
+        return new AssetDTO(longName, regularMarketPrice, symbol);
     }
 }

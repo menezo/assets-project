@@ -1,12 +1,12 @@
 package com.menezo.assetsproject.model.dto;
 
-public class StockDTO {
+public class AssetDTO {
 
     private String longName;
     private double regularMarketPrice;
     private String symbol;
 
-    public StockDTO(String longName, double regularMarketPrice, String symbol) {
+    public AssetDTO(String longName, double regularMarketPrice, String symbol) {
         this.longName = longName;
         this.regularMarketPrice = regularMarketPrice;
         this.symbol = symbol;
