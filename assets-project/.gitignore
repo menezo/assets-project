@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Appication Properties ###
+/src/main/resources/application.properties
+
+### Else ###
+*.log
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz

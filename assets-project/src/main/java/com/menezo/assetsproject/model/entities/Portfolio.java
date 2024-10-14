@@ -18,7 +18,6 @@ public class Portfolio {
     private PortfolioType type;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "portfolio_id")
     private List<Asset> assets;
 
     @Column(nullable = false)

@@ -27,7 +27,6 @@ public abstract class Asset {
     private int quantity;
 
     @ManyToOne
-    @JoinColumn(name = "portfolio_id", nullable = false)
     private Portfolio portfolio;
 
     protected Asset() {
