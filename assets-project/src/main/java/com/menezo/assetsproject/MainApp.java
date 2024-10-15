@@ -29,6 +29,9 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+
+        loader.setControllerFactory(applicationContext::getBean);
+
         Parent root = loader.load();
 
         primaryStage.initStyle(StageStyle.UNDECORATED);

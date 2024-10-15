@@ -225,4 +225,15 @@ public class ClientService {
         }
         return Optional.empty();
     }
+
+    @Transactional
+    public List<Client> getAllClients() {
+        try {
+            return repository.findAll();
+        }
+        catch(Exception e) {
+            logger.error("Error while getting all the clients", e);
+            throw e;
+        }
+    }
 }

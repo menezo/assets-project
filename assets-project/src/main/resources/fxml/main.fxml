@@ -101,16 +101,16 @@
                                                 <Font name="Lucida Sans Unicode" size="16.0" />
                                              </font>
                                           </Label>
-                                          <Button mnemonicParsing="false" styleClass="button2" stylesheets="@../css/styles.css" text="Adicionar Novo" textFill="#52438f" />
-                                          <Button mnemonicParsing="false" styleClass="button2" stylesheets="@../css/styles.css" text="Importar Clientes" textFill="#52438f" />
-                                          <Button mnemonicParsing="false" styleClass="button2" stylesheets="@../css/styles.css" text="Exportar Clientes" textFill="#52438f" />
+                                          <Button fx:id="addClientButton" mnemonicParsing="false" styleClass="button2" stylesheets="@../css/styles.css" text="Adicionar Novo" textFill="#52438f" />
+                                          <Button fx:id="importClientsButton" mnemonicParsing="false" styleClass="button2" stylesheets="@../css/styles.css" text="Importar Clientes" textFill="#52438f" />
+                                          <Button fx:id="exportClientsButton" mnemonicParsing="false" styleClass="button2" stylesheets="@../css/styles.css" text="Exportar Clientes" textFill="#52438f" />
                                        </children>
                                     </HBox>
                                  </top>
                                  <center>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+                                    <TableView fx:id="clientTableView" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="Nome">
+                                        <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="Nome">
                                              <graphic>
                                                 <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>

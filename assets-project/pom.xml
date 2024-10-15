@@ -118,7 +118,7 @@
 					<execution>
 						<id>default-cli</id>
 						<configuration>
-							<mainClass>com.menezo.assetsproject.MainApp</mainClass> <!-- Altere conforme o nome da sua classe Main -->
+							<mainClass>com.menezo.assetsproject.MainApp</mainClass>
 						</configuration>
 					</execution>
 				</executions>
