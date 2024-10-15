@@ -36,8 +36,16 @@ public class Client {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Portfolio> getPortfolios() {
         return portfolios;
+    }
+
+    public void setPortfolios(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
     }
 
     @Override
