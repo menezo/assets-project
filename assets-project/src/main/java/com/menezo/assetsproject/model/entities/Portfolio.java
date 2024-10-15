@@ -40,12 +40,24 @@ public class Portfolio {
         return type;
     }
 
+    public void setType(PortfolioType type) {
+        this.type = type;
+    }
+
     public List<Asset> getAssets() {
         return assets;
     }
 
+    public void setAssets(List<Asset> assets) {
+        this.assets = assets;
+    }
+
     public Double getCurrentWeight() {
         return currentWeight;
+    }
+
+    public void setCurrentWeight(Double currentWeight) {
+        this.currentWeight = currentWeight;
     }
 
     @Override
