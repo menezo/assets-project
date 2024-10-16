@@ -2,6 +2,7 @@ package com.menezo.assetsproject.model.repository;
 
 import com.menezo.assetsproject.model.entities.Portfolio;
 import com.menezo.assetsproject.model.entities.PortfolioType;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,4 @@ public interface PortfolioRepository extends JpaRepository<Portfolio, Long> {
     List<Portfolio> findByCurrentWeightLessThan(Double weight);
     //Find portfolios that contain that specific ticker
     List<Portfolio> findByAssets_Ticker(String ticker);
-
 }

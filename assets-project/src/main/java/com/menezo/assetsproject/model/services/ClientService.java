@@ -74,18 +74,6 @@ public class ClientService {
     }
 
     @Transactional
-    public List<Client> getAllClientsWithPortfolios() {
-        try {
-            List<Client> clients = repository.findAllWithPortfolios();
-            logger.info("Retrieved {} clients with portfolios from the database.", clients.size());
-            return clients;
-        } catch (Exception e) {
-            logger.error("Error while retrieving all clients with portfolios", e);
-            throw e;
-        }
-    }
-
-    @Transactional
     public Client createClient(Client client) {
         try {
             Client savedClient = repository.save(client);

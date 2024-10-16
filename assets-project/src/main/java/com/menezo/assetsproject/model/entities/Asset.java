@@ -5,12 +5,12 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)  // Using inheritance with separated tables
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "assets")
 public abstract class Asset {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
     private String ticker;
@@ -27,6 +27,7 @@ public abstract class Asset {
     private int quantity;
 
     @ManyToOne
+    @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
 
     protected Asset() {

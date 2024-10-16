@@ -17,8 +17,12 @@ public class Portfolio {
     @Column(nullable = false)
     private PortfolioType type;
 
-    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Asset> assets;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
     @Column(nullable = false)
     private Double currentWeight;
@@ -26,9 +30,16 @@ public class Portfolio {
     public Portfolio() {
     }
 
-    public Portfolio(PortfolioType type, List<Asset> assets, Double weight) {
+    public Portfolio(PortfolioType type, List<Asset> assets, Double currentWeight) {
         this.type = type;
         this.assets = assets;
+        this.currentWeight = currentWeight;
+    }
+
+    public Portfolio(PortfolioType type, List<Asset> assets, Client client, Double weight) {
+        this.type = type;
+        this.assets = assets;
+        this.client = client;
         this.currentWeight = weight;
     }
 
@@ -50,6 +61,14 @@ public class Portfolio {
 
     public void setAssets(List<Asset> assets) {
         this.assets = assets;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Double getCurrentWeight() {

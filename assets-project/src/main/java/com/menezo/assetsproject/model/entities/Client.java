@@ -2,6 +2,7 @@ package com.menezo.assetsproject.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,9 +24,14 @@ public class Client {
     public Client() {
     }
 
-    public Client(String name, List<Portfolio> portfolios) {
+    public Client(String name) {
         this.name = name;
-        this.portfolios = portfolios;
+        this.portfolios = new ArrayList<>();
+    }
+
+    public void addPortfolio(Portfolio portfolio) {
+        portfolios.add(portfolio);
+        portfolio.setClient(this);
     }
 
     public Long getId() {
