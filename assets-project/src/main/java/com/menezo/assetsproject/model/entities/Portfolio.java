@@ -84,7 +84,7 @@ public class Portfolio {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Portfolio portfolio = (Portfolio) o;
-        return Objects.equals(id, portfolio.id);
+        return Objects.equals(this.id, portfolio.id);
     }
 
     @Override

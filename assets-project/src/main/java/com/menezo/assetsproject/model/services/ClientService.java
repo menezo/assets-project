@@ -75,6 +75,11 @@ public class ClientService {
 
     @Transactional
     public Client createClient(Client client) {
+
+        if (client == null || client.getName() == null || client.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Client name cannot be null or empty.");
+        }
+
         try {
             Client savedClient = repository.save(client);
             logger.info("Successfully created client with ID: {}", savedClient.getId());
@@ -109,8 +114,9 @@ public class ClientService {
     @Transactional
     public boolean deleteClient(Long id) {
         try {
-            if (repository.existsById(id)) {
-                repository.deleteById(id);
+            Optional<Client> clientOptional = repository.findById(id);
+            if (clientOptional.isPresent()) {
+                repository.delete(clientOptional.get());
                 logger.info("Successfully deleted client with ID: {}", id);
                 return true;
             } else {
@@ -181,6 +187,13 @@ public class ClientService {
 
     @Transactional
     public Optional<Client> deletePortfolioFromClient(Long clientId, Long portfolioId) {
+        if (clientId == null) {
+            throw new NullPointerException("Client ID cannot be null");
+        }
+        if (portfolioId == null) {
+            throw new NullPointerException("Portfolio ID cannot be null");
+        }
+
         try {
             Optional<Client> clientOptional = repository.findById(clientId);
             if (clientOptional.isPresent()) {
@@ -190,14 +203,20 @@ public class ClientService {
                 if (portfolioOptional.isPresent()) {
                     Portfolio portfolio = portfolioOptional.get();
 
-                    if (client.getPortfolios().contains(portfolio)) {
+                    boolean portfolioExists = client.getPortfolios().stream()
+                            .anyMatch(p -> p.getId()!= null && p.getId().equals(portfolio.getId()));
 
-                        client.getPortfolios().remove(portfolio);
-                        portfolioService.deletePortfolio(portfolioId);
-                        repository.save(client);
+                    if (portfolioExists) {
+                        boolean deletionResult = portfolioService.deletePortfolio(portfolioId);
+                        if (deletionResult) {
+                            client.getPortfolios().removeIf(p -> p.getId()!= null && p.getId().equals(portfolioId));
+                            repository.save(client);
 
-                        logger.info("Successfully deleted portfolio with ID: {} from client with ID: {}", portfolioId, clientId);
-                        return Optional.of(client);
+                            logger.info("Successfully deleted portfolio with ID: {} from client with ID: {}", portfolioId, clientId);
+                            return Optional.of(client);
+                        } else {
+                            logger.warn("Failed to delete portfolio with ID: {} from client with ID: {}", portfolioId, clientId);
+                        }
                     } else {
                         logger.warn("Client with ID: {} does not have portfolio with ID: {}", clientId, portfolioId);
                     }
@@ -213,6 +232,7 @@ public class ClientService {
         }
         return Optional.empty();
     }
+
 
     @Transactional
     public List<Client> getAllClients() {

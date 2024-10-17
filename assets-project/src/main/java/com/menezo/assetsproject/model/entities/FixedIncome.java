@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "fixed_income")
+@Table (name = "fixed_incomes")
 public class FixedIncome extends Asset {
 
     public FixedIncome() {
